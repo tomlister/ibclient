@@ -82,10 +82,10 @@ const (
 )
 
 // Historical retrieves historical market data for a security.
-func (s Security) Historical(period int, unit TimeUnit) Historical {
+func (s Security) Historical(period int, unit TimeUnit, barSize int, barUnit TimeUnit) Historical {
 	client := resty.New()
 	client.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})
-	resp, err := client.R().Get(base + "/api/iserver/marketdata/history?conid=" + strconv.Itoa(s.Conid) + "&period=" + strconv.Itoa(period) + string(unit))
+	resp, err := client.R().Get(base + "/api/iserver/marketdata/history?conid=" + strconv.Itoa(s.Conid) + "&period=" + strconv.Itoa(period) + string(unit) + "&bar=" + strconv.Itoa(barSize) + string(barUnit))
 	if err != nil {
 		log.Panic(err)
 	}
