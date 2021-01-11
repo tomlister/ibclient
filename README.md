@@ -45,9 +45,9 @@ In order to use this package the user must have the following:
 - The IBKR Client Portal Web API running locally
 
 ## Running
-Once the user has the prerequisites in order, the user must sign through the client portal sso page.
-It is recommended to login through your accounts dedicated paper trading username and password.
-To find out more about the client portal setup process visit https://interactivebrokers.github.io/cpwebapi/
+Once the prerequisites are in place, the user must sign through the client portal SSO.
+Logging in with a dedicated paper trading username and password is recommended.
+More info about the client portal setup process can be found at https://interactivebrokers.github.io/cpwebapi/
 
 ## Roadmap
 As this is a fairly new package, a lot of the features you'd expect aren't implemented yet.
