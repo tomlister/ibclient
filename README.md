@@ -1,6 +1,6 @@
 # ibclient
 [![GoDoc](https://img.shields.io/badge/godoc-ibclient-007d9c)](https://pkg.go.dev/github.com/tomlister/ibclient)
-[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Ftomlister%2Fibclient)](https://twitter.com/intent/tweet?text=Check%20out%20&url=https%3A%2F%2Fgithub.com%2Ftomlister%2Fibclient)
+[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Ftomlister%2Fibclient)](https://twitter.com/intent/tweet?text=Check%20out&url=https%3A%2F%2Fgithub.com%2Ftomlister%2Fibclient)
 
 IBKR Client Portal Web API Wrapper for Go
 
