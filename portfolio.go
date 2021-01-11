@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"log"
 
-	resty "github.com/go-resty/resty"
+	resty "github.com/go-resty/resty/v2"
 )
 
 // Portfolio stores information about a specific account portfolio
@@ -113,8 +113,10 @@ func (p Portfolio) Positions() Positions {
 type AssetClass string
 
 const (
+	// Futures are contracts that allow assets to be purchased at a market price for delivery and payment in the future.
 	Futures AssetClass = "FUT"
-	Stocks  AssetClass = "STK"
+	// Stocks represent a fractional ownership of a business and entitles the holder to dividends.
+	Stocks AssetClass = "STK"
 )
 
 // FilterAssets filters positions by asset class

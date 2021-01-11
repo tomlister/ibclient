@@ -5,9 +5,10 @@ import (
 	"encoding/json"
 	"log"
 
-	resty "github.com/go-resty/resty"
+	resty "github.com/go-resty/resty/v2"
 )
 
+// BrokerAccounts stores information about a users available brokerage accounts
 type BrokerAccounts struct {
 	Accounts     []string `json:"accounts"`
 	ChartPeriods struct {
@@ -39,10 +40,12 @@ type BrokerAccounts struct {
 	} `json:"allowFeatures"`
 }
 
+// BrokerAccount stores the id of a brokerage account
 type BrokerAccount struct {
 	ID string
 }
 
+// Brokers retrieves all of an accounts brokerage accounts
 func Brokers() BrokerAccounts {
 	client := resty.New()
 	client.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})
@@ -58,6 +61,7 @@ func Brokers() BrokerAccounts {
 	return brokerAccounts
 }
 
+// Selected returns the default/active brokerage account
 func (ba BrokerAccounts) Selected() BrokerAccount {
 	brokerAccount := BrokerAccount{
 		ID: ba.SelectedAccount,

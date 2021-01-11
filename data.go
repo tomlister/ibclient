@@ -6,10 +6,11 @@ import (
 	"log"
 	"strconv"
 
-	resty "github.com/go-resty/resty"
+	resty "github.com/go-resty/resty/v2"
 	"github.com/rocketlaunchr/dataframe-go"
 )
 
+// HistoricalDataFrame stores the OCHL, Volume and Time of a security for a single frame of historical market data.
 type HistoricalDataFrame struct {
 	O float64 `json:"o"`
 	C float64 `json:"c"`
@@ -19,6 +20,7 @@ type HistoricalDataFrame struct {
 	T int64   `json:"t"`
 }
 
+// ToDataFrame converts historical market data to dataframes for technical analysis.
 func (hd Historical) ToDataFrame() *dataframe.DataFrame {
 	o := dataframe.NewSeriesFloat64("open", nil)
 	c := dataframe.NewSeriesFloat64("close", nil)
@@ -38,6 +40,7 @@ func (hd Historical) ToDataFrame() *dataframe.DataFrame {
 	return df
 }
 
+// Historical stores historical market data returned from the brokerage server.
 type Historical struct {
 	Symbol            string                `json:"symbol"`
 	Text              string                `json:"text"`
@@ -60,6 +63,7 @@ type Historical struct {
 	TravelTime        int                   `json:"travelTime"`
 }
 
+// Historical retrieves historical market data for a security.
 func (s Security) Historical() Historical {
 	client := resty.New()
 	client.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})

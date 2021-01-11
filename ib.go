@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"log"
 
-	resty "github.com/go-resty/resty"
+	resty "github.com/go-resty/resty/v2"
 )
 
 var base string
@@ -26,6 +26,7 @@ func KeepAlive() {
 	}
 }
 
+// Authenticate initiates the brokerage session
 func Authenticate() {
 	client := resty.New()
 	client.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})
