@@ -9,7 +9,9 @@ Retrieve all positions in a portfolio, filter by asset class and get historical 
 package main
 
 import (
-  ib "github.com/tomlister/ibclient"
+	"fmt"
+	"time"
+	ib "github.com/tomlister/ibclient"
 )
 
 func main() {
@@ -20,9 +22,6 @@ func main() {
 	}, time.Minute)
 	broker := ib.Brokers().Selected()
 	portfolios := ib.Portfolios()
-	var wg sync.WaitGroup
-	wg.Add(1)
-	go StartWebServer(&wg, broker, portfolios[0])
 	positions := portfolios[0].Positions()
 	futures := positions.FilterAssets(ib.Futures)
 	for _, p := range futures {
