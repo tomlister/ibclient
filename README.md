@@ -31,7 +31,7 @@ func main() {
 	}
 }
 ```
-Running this example: `go run -tags=example ./examples/historical`
+To run this example: `go run -tags=example github.com/tomlister/ibclient/examples/historical`
 
 ## Installing
 `go get github.com/tomlister/ibclient`
