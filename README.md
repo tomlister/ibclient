@@ -51,6 +51,7 @@ As this is a fairly new package, a lot of the features you'd expect aren't imple
 Rest assured they will be implemented in due time.
 - [x] Portfolio
 - [x] Historical Data
+- [ ] Live Data
 - [ ] Trade Execution
 
 ## Disclaimers
