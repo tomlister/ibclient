@@ -30,7 +30,7 @@ func main() {
 		// Create a new reference to a security from a position
 		sec := broker.Security(p)
 		// Retrieve the historical data for that security
-		historical := sec.Historical()
+		historical := sec.Historical(30, ib.Min)
 		fmt.Println(historical)
 	}
 }
