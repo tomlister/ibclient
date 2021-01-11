@@ -45,6 +45,7 @@ Once the user has the prerequisites in order, the user must sign through the cli
 It is recommended to login through your accounts dedicated paper trading username and password.
 To find out more about the client portal setup process visit https://interactivebrokers.github.io/cpwebapi/
 
-## Disclaimer
+## Disclaimers
+This is an unofficial wrapper for IBKR's Client Portal Web API.
 As using any financial products naturally comes with risk, I'm not responsible for any financial damages or losses that may occur using this library to execute trades, etc...
 The licence also provides no warranty what so ever.
