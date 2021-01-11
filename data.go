@@ -63,11 +63,29 @@ type Historical struct {
 	TravelTime        int                   `json:"travelTime"`
 }
 
+// TimeUnit represents a unit of time.
+type TimeUnit string
+
+const (
+	// Min - 1 to 30 minutes.
+	Min TimeUnit = "min"
+	// Hour - 1 to 8 hours.
+	Hour TimeUnit = "h"
+	// Day - 1 to 1000 days.
+	Day TimeUnit = "d"
+	// Week - 1 to 792 weeks.
+	Week TimeUnit = "w"
+	// Month - 1 to 182 months.
+	Month TimeUnit = "m"
+	// Year - 1 to 15 years.
+	Year TimeUnit = "y"
+)
+
 // Historical retrieves historical market data for a security.
-func (s Security) Historical() Historical {
+func (s Security) Historical(period int, unit TimeUnit, barSize int, barUnit TimeUnit) Historical {
 	client := resty.New()
 	client.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})
-	resp, err := client.R().Get(base + "/api/iserver/marketdata/history?conid=" + strconv.Itoa(s.Conid) + "&period=2d")
+	resp, err := client.R().Get(base + "/api/iserver/marketdata/history?conid=" + strconv.Itoa(s.Conid) + "&period=" + strconv.Itoa(period) + string(unit) + "&bar=" + strconv.Itoa(barSize) + string(barUnit))
 	if err != nil {
 		log.Panic(err)
 	}

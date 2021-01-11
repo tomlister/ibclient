@@ -30,7 +30,7 @@ func main() {
 	futures := positions.FilterAssets(ib.Futures)
 	for _, p := range futures {
 		sec := broker.Security(p)
-		historical := sec.Historical()
+		historical := sec.Historical(2, ib.Day, 1, ib.Hour)
 		fmt.Println(historical)
 	}
 }
