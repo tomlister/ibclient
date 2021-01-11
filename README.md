@@ -57,6 +57,7 @@ Rest assured they will be implemented in due time.
 - [x] Historical Data
 - [ ] Live Data
 - [ ] Trade Execution
+- [ ] Scanners
 
 ## Disclaimers
 This is an unofficial wrapper for IBKR's Client Portal Web API.
