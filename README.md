@@ -31,3 +31,20 @@ func main() {
 	}
 }
 ```
+
+## Installing
+`go get github.com/tomlister/ibclient`
+
+## Prerequisites
+In order to use this package the user must have the following:
+- An IBKR Pro Brokerage Account
+- The IBKR Client Portal Web API running locally
+
+## Running
+Once the user has the prerequisites in order, the user must sign through the client portal sso page.
+It is recommended to login through your accounts dedicated paper trading username and password.
+To find out more about the client portal setup process visit https://interactivebrokers.github.io/cpwebapi/
+
+## Disclaimer
+As using any financial products naturally comes with risk, I'm not responsible for any financial damages or losses that may occur using this library to execute trades, etc...
+The licence also provides no warranty what so ever.
