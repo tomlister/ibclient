@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"strconv"
+	"strings"
 
 	resty "github.com/go-resty/resty/v2"
 	"github.com/rocketlaunchr/dataframe-go"
@@ -95,4 +96,144 @@ func (s Security) Historical(period int, unit TimeUnit, barSize int, barUnit Tim
 		log.Panic(err)
 	}
 	return historical
+}
+
+type Snapshot struct {
+	LastPrice                      float64 `json:"31,string,omitempty"`
+	Symbol                         string  `json:"55,omitempty"`
+	Text                           string  `json:"58,omitempty"`
+	High                           float64 `json:"70,string,omitempty"`
+	Low                            float64 `json:"71,string,omitempty"`
+	Position                       float64 `json:"72,omitempty"`
+	MarketValue                    string  `json:"73,omitempty"`
+	AveragePrice                   float64 `json:"74,string,omitempty"`
+	UnrealizedPnL                  float64 `json:"75,omitempty"`
+	FormattedPosition              string  `json:"76,omitempty"`
+	FormattedUnrealizedPnL         string  `json:"77,omitempty"`
+	DailyPnL                       float64 `json:"78_raw,omitempty"`
+	ChangePrice                    float64 `json:"82,string,omitempty"`
+	ChangePercent                  float64 `json:"83,omitempty"`
+	BidPrice                       float64 `json:"84,string,omitempty"`
+	AskSize                        int     `json:"85,string,omitempty"`
+	AskPrice                       float64 `json:"86,string,omitempty"`
+	Volume                         float64 `json:"87_raw,omitempty"`
+	BidSize                        int     `json:"88,string,omitempty"`
+	SecurityType                   string  `json:"6070,omitempty"`
+	MarketDataDeliveryMethodMarker string  `json:"6119,omitempty"`
+	UnderlyingConid                int     `json:"6457,string,omitempty"`
+	MarketDataAvailability         string  `json:"6509,omitempty"`
+	CompanyName                    string  `json:"7051,omitempty"`
+	LastSize                       int     `json:"7059,string,omitempty"`
+	ContractDescription            string  `json:"7219,omitempty"`
+	ListingExchange                string  `json:"7221,omitempty"`
+	Industry                       string  `json:"7280,omitempty"`
+	Category                       string  `json:"7281,omitempty"`
+	AverageDailyVolume             string  `json:"7282,omitempty"`
+	HistoricVolume30D              string  `json:"7284,omitempty"`
+	DividendAmount                 float64 `json:"7286,string,omitempty"`
+	DividendYieldPercentage        string  `json:"7287,omitempty"`
+	DividendExDate                 string  `json:"7288,omitempty"`
+	MarketCap                      string  `json:"7289,omitempty"`
+	PE                             float64 `json:"7290,string,omitempty"`
+	EPS                            float64 `json:"7291,string,omitempty"`
+	CostBasis                      float64 `json:"7292_raw,omitempty"`
+	WeekHigh52                     float64 `json:"7293,string,omitempty"`
+	WeekLow52                      float64 `json:"7294,string,omitempty"`
+	OpenPrice                      float64 `json:"7295,string,omitempty"`
+	Conid                          int     `json:"conid"`
+	ServerID                       string  `json:"server_id,omitempty"`
+	Updated                        int64   `json:"_updated,omitempty"`
+}
+
+type Snapshots []Snapshot
+
+// MarketDataField represents a field to request market data for.
+// IB decided it was a fun idea to assign each field a number instead of a name.
+// So now I must resort to this horrific mess
+type MarketDataField string
+
+const (
+	LastPrice                      MarketDataField = "31"
+	Symbol                         MarketDataField = "55"
+	Text                           MarketDataField = "58"
+	High                           MarketDataField = "70"
+	Low                            MarketDataField = "71"
+	Pos                            MarketDataField = "72"
+	MarketValue                    MarketDataField = "73"
+	AveragePrice                   MarketDataField = "74"
+	UnrealizedPnL                  MarketDataField = "75"
+	FormattedPosition              MarketDataField = "76"
+	FormattedUnrealizedPnL         MarketDataField = "77"
+	DailyPnL                       MarketDataField = "78"
+	ChangePrice                    MarketDataField = "82"
+	ChangePercent                  MarketDataField = "83"
+	BidPrice                       MarketDataField = "84"
+	AskSize                        MarketDataField = "85"
+	AskPrice                       MarketDataField = "86"
+	Volume                         MarketDataField = "87"
+	BidSize                        MarketDataField = "88"
+	Exchange                       MarketDataField = "6004"
+	Conid                          MarketDataField = "6008"
+	SecurityType                   MarketDataField = "6070"
+	Months                         MarketDataField = "6072"
+	RegularExpiry                  MarketDataField = "6073"
+	MarketDataDeliveryMethodMarker MarketDataField = "6119"
+	UnderlyingConid                MarketDataField = "6457"
+	MarketDataAvailability         MarketDataField = "6509"
+	CompanyName                    MarketDataField = "7051"
+	LastSize                       MarketDataField = "7059"
+	ConidExchange                  MarketDataField = "7094"
+	ContractDescription            MarketDataField = "7219"
+	ContractDescriptionAlt         MarketDataField = "7220"
+	ListingExchange                MarketDataField = "7221"
+	Industry                       MarketDataField = "7280"
+	Category                       MarketDataField = "7281"
+	AverageDailyVolume             MarketDataField = "7282"
+	HistoricVolume30D              MarketDataField = "7284"
+	PutCallRatio                   MarketDataField = "7285"
+	DividendAmount                 MarketDataField = "7286"
+	DividendYieldPercentage        MarketDataField = "7287"
+	DividendExDate                 MarketDataField = "7288"
+	MarketCap                      MarketDataField = "7289"
+	PE                             MarketDataField = "7290"
+	EPS                            MarketDataField = "7291"
+	CostBasis                      MarketDataField = "7292"
+	WeekHigh52                     MarketDataField = "7293"
+	WeekLow52                      MarketDataField = "7294"
+	OpenPrice                      MarketDataField = "7295"
+	ClosePrice                     MarketDataField = "7296"
+	Delta                          MarketDataField = "7308"
+	Gamma                          MarketDataField = "7309"
+	Theta                          MarketDataField = "7310"
+	Vega                           MarketDataField = "7311"
+	ImpliedVolatilityOption        MarketDataField = "7633"
+)
+
+// Snapshot retrieves a market data snapshot by fields
+func (s Security) Snapshot(fields ...MarketDataField) Snapshots {
+	fieldStrings := make([]string, 0)
+	for _, f := range fields {
+		fieldStrings = append(fieldStrings, string(f))
+	}
+	builtFields := strings.Join(fieldStrings, ",")
+	client := resty.New()
+	client.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})
+	resp, err := client.R().Get(base + "/api/iserver/marketdata/snapshot?conids=" + strconv.Itoa(s.Conid) + "&fields=" + builtFields)
+	if err != nil {
+		log.Panic(err)
+	}
+	// Rerequest the snapshot
+	// IBKR seems to need an initial request to initiate the market
+	// data transaction and rerequesting the snapshot will
+	// give us the desired data.
+	resp, err = client.R().Get(base + "/api/iserver/marketdata/snapshot?conids=" + strconv.Itoa(s.Conid) + "&fields=" + builtFields)
+	if err != nil {
+		log.Panic(err)
+	}
+	snapshots := Snapshots{}
+	err = json.Unmarshal(resp.Body(), &snapshots)
+	if err != nil {
+		log.Panic(err)
+	}
+	return snapshots
 }
